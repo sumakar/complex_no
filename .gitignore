@@ -1,28 +1,98 @@
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+#include<iostream.h>
+#include<conio.h>
+#include<math.h>
 
-# Precompiled Headers
-*.gch
-*.pch
+class complex
+{float i,r;
+public:
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+complex()
+{r=0;i=0;}
 
-# Fortran module files
-*.mod
+complex(int a,int b)
+{r=a;i=b;}
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
+complex(complex &c)
+{r=c.r;i=c.i;}
 
-# Executables
-*.exe
-*.out
-*.app
+
+friend istream &operator>>(istream  &input,complex &c )
+ { input>>c.r>>c.i;
+ return input;
+		}
+friend ostream &operator<<(ostream &output,complex &c)
+{output<<c.r<<"+("<<c.i<<")i";
+return output;
+}
+int operator==(complex c)
+{
+if((i==c.i)&&(r==c.r))
+{return 1;}
+else
+{return 0;}
+}
+int operator!=(complex c)
+{
+if((i!=c.i)||(r!=c.r))
+{return 1;}
+else
+{return 0;}
+}
+
+complex operator+(complex c)
+{
+complex temp;
+temp.i=i+c.i;
+temp.r=r+c.r;
+return(temp);
+}
+complex operator-(complex c)
+{
+complex temp;
+temp.i=i-c.i;
+temp.r=r-c.r;
+return(temp);
+}
+
+complex operator*(complex c)
+{
+complex temp;
+temp.i=i*c.i-r*c.r;
+temp.r=r*c.i+i*c.r;
+return(temp);
+}
+complex operator/(complex c)
+{
+complex temp;
+temp.i=(i*c.i+r*c.r)/(c.i*c.i+c.r*c.r);
+temp.r=(i*c.r-r*c.i)/(c.i*c.i+c.r*c.r);
+return(temp);
+}
+
+float operator!()
+{float a;
+a=sqrt(i*i+r*r);
+return(a);}
+
+
+ };
+
+
+void main()
+{complex c1(3,4),c2(12,13);
+
+cout<<"Default values of \n c1:"<<c1<<" c2:"<<c2;
+cout<<"\nEnter c1:";
+cin>>c1;
+cout<<"\nEnter c2:";
+cin>>c2;
+cout<<"Modified values of \n c1:"<<c1<<" c2:"<<c2;
+cout<<"\nSum="<<(c1+c2);
+cout<<"\nDifference="<<(c1-c2);
+cout<<"\nProduct="<<(c1*c2);
+cout<<"\nDivison="<<(c1/c2);
+cout<<"\nAbsolute value of |c1| ="<<!c1<<" |c2| ="<<!c2;
+
+getch();
+
+}
